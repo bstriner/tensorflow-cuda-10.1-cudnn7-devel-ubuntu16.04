@@ -19,7 +19,6 @@ From: nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
     apt-get install -y gnuplot-x11
 	
     apt-get install -y python3 python3-dev python3-pip
-    pip3 install --upgrade pip
     pip3 install --upgrade tf-nightly-gpu tf-estimator-nightly tfp-nightly tb-nightly numpy h5py dill
 
     # Clean up
