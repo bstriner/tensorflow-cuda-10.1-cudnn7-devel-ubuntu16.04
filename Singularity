@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
 #tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
+%environment
+    LC_ALL=C
+	export LC_ALL
 %post
 
     # Update list of available packages, then upgrade them
@@ -16,7 +19,8 @@ From: nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
     apt-get install -y gnuplot-x11
 	
     apt-get install -y python3 python3-dev python3-pip
-    pip3 install tf-nightly-gpu tf-estimator-nightly tfp-nightly tb-nightly
+    pip3 install --upgrade pip
+    pip3 install --upgrade tf-nightly-gpu tf-estimator-nightly tfp-nightly tb-nightly numpy h5py dill
 
     # Clean up
     apt-get -y autoremove
