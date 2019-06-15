@@ -1,10 +1,11 @@
+# Dockerfile for bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
+
 FROM bstriner/cuda-10.1-cudnn7-devel-ubuntu16.04
-#nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
-#bstriner / cuda-10.1-cudnn7-devel-ubuntu16.04
-# tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
-# docker build . -t tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
 # nohup docker build . -t tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04 & disown
 # docker run -it tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
+# docker login
+# docker tag tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04 bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:20190605
+# nohup docker push bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:20190605 & disown
 
 #TF
 RUN apt-get install git
