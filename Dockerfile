@@ -32,20 +32,30 @@ ENV GCC_HOST_COMPILER_PATH /usr/bin/gcc
 ENV TF_NEED_MPI 0
 ENV CC_OPT_FLAGS "-mavx -mavx2 -mfma -mfpmath=both -msse4.2"
 ENV TF_SET_ANDROID_WORKSPACE 0
+RUN python3 -m pip install keras_preprocessing keras_applications
 RUN ./configure
 RUN bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 RUN ./bazel-bin/tensorflow/tools/pip_package/build_pip_package --nightly_flag /pkg/tensorflow_pkg
-#RUN python3 -m pip install /pkg/tensorflow_pkg/tensorflow-version-tags.whl
-#RUN python3 -c "import tensorflow as tf; print(tf.__version__)"
+RUN ls /pkg/tensorflow_pkg/
+RUN python3 -m pip install /pkg/tensorflow_pkg/*.whl
+WORKDIR /pkg
+#RUN python3 -m pip install --upgrade tfp-nightly
+RUN python3 -m pip install --upgrade pysoundfile cffi
+RUN python3 -c "import tensorflow as tf; print(tf.__version__)"
 
 #TFP
-#WORKDIR /pkg
-#RUN git clone https://github.com/tensorflow/probability.git
-#WORKDIR /pkg/probability
-#RUN bazel build --copt=-O3 --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2 :pip_pkg
-#RUN mkdir -p /pkg/tfp
-#RUN ./bazel-bin/pip_pkg /pkg/tfp
-#RUN python3 -m pip install --upgrade /pkg/tfp/*.whl
-
+WORKDIR /pkg
+RUN git clone https://github.com/tensorflow/probability.git
+WORKDIR /pkg/probability
+RUN mv /usr/bin/python /usr/bin/python-bak
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN bazel build --copt=-O3 --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2 :pip_pkg
+RUN mkdir -p /pkg/probability_pkg
+RUN ./bazel-bin/pip_pkg /pkg/probability_pkg
+RUN rm /usr/bin/python
+RUN mv /usr/bin/python-bak /usr/bin/python
+RUN ls /pkg/probability_pkg/
+RUN python3 -m pip install --upgrade /pkg/probability_pkg/*.whl
+WORKDIR /pkg
+RUN python3 -c "import tensorflow_probability as tfp; print(tfp.__version__)"
 # Test
-#RUN python3 -c "import tensorflow"
