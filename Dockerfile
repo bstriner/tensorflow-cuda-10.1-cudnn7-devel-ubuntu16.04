@@ -1,11 +1,10 @@
 # Dockerfile for bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
 
 FROM bstriner/cuda-10.1-cudnn7-devel-ubuntu16.04
-# nohup docker build . -t tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04 & disown
-# docker run -it tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04
+# nohup docker build . -t bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:27 & disown
 # docker login
-# docker tag tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04 bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:20190605
-# nohup docker push bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:20190605 & disown
+# docker push bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:27
+# docker run -it bstriner/tensorflow-cuda-10.1-cudnn7-devel-ubuntu16.04:27
 
 #TF
 RUN apt-get install git
@@ -23,7 +22,7 @@ ENV TF_NEED_OPENCL_SYCL 0
 ENV CUDA_TOOLKIT_PATH /usr/local/cuda
 ENV TF_CUDA_VERSION 10.1
 ENV TF_CUDNN_VERSION 7.6.0
-ENV TF_CUDA_COMPUTE_CAPABILITIES 3.5,6.1
+ENV TF_CUDA_COMPUTE_CAPABILITIES 6.1
 ENV TF_NEED_ROCM 0
 ENV TF_NEED_CUDA 1
 ENV TF_NEED_TENSORRT 0
