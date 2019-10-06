@@ -11,7 +11,7 @@ RUN python3 -m pip install --upgrade \
 	keras \
 	keras_preprocessing \
 	keras_applications \
-	tensorflow-gpu==1.14.0 \
+	tensorflow-gpu==1.15.0rc2 \
 	tensorflow-probability \
 	pysoundfile \
 	cffi \
